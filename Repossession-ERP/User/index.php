@@ -42,7 +42,7 @@ function displaySearchResults() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BHARAT ENTERPRISES</title>
+    <title>Your Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -187,8 +187,8 @@ function displaySearchResults() {
     <div class="container">
         <!-- Header and search form -->
         <div class="text-center">
-            <h1 class="brand-title mb-0">BHARAT ENTERPRISES</h1>
-            <a href="tel:+917666621322" class="btn btn-primary btn-sm ml-2">Call +917666621322</a>
+            <h1 class="brand-title mb-0">Your Title</h1>
+            <a href="tel:Your Phone Number" class="btn btn-primary btn-sm ml-2">Call Your Phone Number</a>
         </div>
 
         <div class="search-form">
@@ -210,7 +210,7 @@ function displaySearchResults() {
         ?>
 
         <a href="index.php?logout=true" class="logout-btn">Logout</a>
-        <div class="footer">Copyright © 2024 BHARAT ENTERPRISES</div>
+        <div class="footer">Copyright © 2024 Your Title</div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
