@@ -1,15 +1,9 @@
 <?php
-session_start();
-
-// Redirect to login page if user is not logged in
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
 // Optional: implement session timeout logic
 // Set the session timeout to 30 minutes (1800 seconds)
 ini_set('session.gc_maxlifetime', 1800);
+
+session_start(); // Start or resume session
 
 // Regenerate the session ID to prevent session fixation attacks
 if (!isset($_SESSION['CREATED'])) {
@@ -47,6 +41,9 @@ $_SESSION['LAST_ACTIVITY'] = time(); // Update last activity time
             max-height: 300px; /* Set max height for scrollable area */
             overflow-y: auto; /* Enable vertical scroll */
         }
+        .file-actions {
+            margin-top: 10px; /* Added margin for spacing */
+        }
     </style>
 </head>
 <body>
@@ -61,13 +58,13 @@ $_SESSION['LAST_ACTIVITY'] = time(); // Update last activity time
 
     <div class="row">
         <div class="col-md-6 mb-4">
-            <h2>Upload CSV File</h2>
+            <h2>Upload CSV/XLSX/XLS File</h2>
             <form method="post" enctype="multipart/form-data" action="upload.php">
                 <div class="form-group">
-                    <label for="csv_file">Select CSV file to upload:</label>
-                    <input type="file" name="csv_file" id="csv_file" class="form-control-file">
+                    <label for="csv_file">Select file to upload:</label>
+                    <input type="file" name="csv_file" id="csv_file" class="form-control-file" accept=".csv,.xlsx,.xls">
                 </div>
-                <input type="submit" value="Upload CSV" name="submit" class="btn btn-primary">
+                <input type="submit" value="Upload File" name="submit" class="btn btn-primary">
             </form>
         </div>
 
@@ -111,7 +108,7 @@ $_SESSION['LAST_ACTIVITY'] = time(); // Update last activity time
                                         <a href='$directory$file' target='_blank' class='btn btn-link'>View</a>
                                         <button class='btn btn-danger btn-sm delete-file' data-file='$file'>Delete File</button>
                                     </div>
-                                    <div class='col-md-5 offset-md-2'> <!-- Added offset for more space between columns -->
+                                    <div class='col-md-5 offset-md-2 file-actions'> <!-- Added offset for more space between columns -->
                                         <button class='btn btn-danger btn-sm delete-db' data-file='$file'>Delete from Database</button>
                                     </div>
                                 </div>
@@ -185,6 +182,7 @@ document.querySelectorAll('.delete-db').forEach(button => {
             .then(data => {
                 if (data.success) {
                     alert('Database entries deleted successfully');
+                    location.reload(); // Refresh the page to update the list
                 } else {
                     alert('Error deleting database entries');
                 }
@@ -208,7 +206,7 @@ document.querySelectorAll('.delete-file').forEach(button => {
             .then(data => {
                 if (data.success) {
                     alert('File deleted successfully');
-                    location.reload(); // Refresh the page to update the file list
+                    location.reload(); // Refresh the page to update the list
                 } else {
                     alert('Error deleting file');
                 }
