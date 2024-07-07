@@ -4,21 +4,23 @@ body {
     background-color: #f4f4f4;
 }
 
+
 .container {
     background-color: #fff;
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 h1, h2 {
     color: #333;
     text-align: center;
+    font-size: 12px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 input[type="text"],
@@ -28,6 +30,11 @@ input[type="file"] {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
+}
+.small-input {
+    width: 20px; /* Adjust width as per your design */
+    font-size: 10px; /* Adjust font size as per your design */
+    padding: 6px 10px; /* Adjust padding as per your design */
 }
 
 input[type="submit"] {

@@ -38,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: index.php?search_results=true");
                 exit();
             } else {
-                echo "No vehicles found with that criteria.";
+                //echo "No vehicles found with that criteria.";
+                echo "<div class='col-12 alert alert-warning'>No vehicles found with that criteria. <a href='index.php' class='btn btn-link'>Go Back</a></div>";
             }
 
             // Close statement
