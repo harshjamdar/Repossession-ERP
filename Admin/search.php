@@ -1,5 +1,6 @@
 <?php 
 require_once 'db_config.php';
+include 'session_check.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["search_veh_part"]) && strlen($_POST["search_veh_part"]) == 4) {

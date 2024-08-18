@@ -1,5 +1,6 @@
 <?php
 require 'db_config.php'; // Include db_config.php to establish $conn connection
+include 'session_check.php';
 
 $error_message = '';
 
