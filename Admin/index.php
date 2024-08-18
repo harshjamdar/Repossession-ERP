@@ -2,6 +2,7 @@
 // Optional: implement session timeout logic
 // Set the session timeout to 30 minutes (1800 seconds)
 ini_set('session.gc_maxlifetime', 1800);
+include 'session_check.php';
 
 session_start(); // Start or resume session
 
