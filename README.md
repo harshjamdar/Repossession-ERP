@@ -13,4 +13,4 @@ Steps:
 
 To Add Admin in Database you can use different methods:  
 1st Direct Insert  
-2nd Create A file to add A Admin in database taking reference to add_user.php file.
+2nd Create A file to add a Admin in database taking reference to add_user.php file.
