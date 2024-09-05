@@ -19,15 +19,30 @@ function displaySearchResults() {
     if (isset($_GET['search_results']) && isset($_SESSION['search_results'])) {
         $veh_numbers = $_SESSION['search_results'];
         if (!empty($veh_numbers)) {
+            sort($veh_numbers); // Sort results alphabetically
             $total_results = count($veh_numbers);
+            $half = ceil($total_results / 2); // Determine the midpoint for splitting into two columns
+
             echo '<div class="container">';
             echo '<div class="row search-results">';
 
-            for ($i = 0; $i < $total_results; $i++) {
-                echo '<div class="col-6 search-result-item">';
+            // Display first column
+            echo '<div class="col-6">';
+            for ($i = 0; $i < $half; $i++) {
+                echo '<div class="search-result-item">';
                 echo '<a href="index.php?veh_no=' . $veh_numbers[$i] . '" class="vehicle-number">' . $veh_numbers[$i] . '</a>';
                 echo '</div>';
             }
+            echo '</div>';
+
+            // Display second column
+            echo '<div class="col-6">';
+            for ($i = $half; $i < $total_results; $i++) {
+                echo '<div class="search-result-item">';
+                echo '<a href="index.php?veh_no=' . $veh_numbers[$i] . '" class="vehicle-number">' . $veh_numbers[$i] . '</a>';
+                echo '</div>';
+            }
+            echo '</div>';
 
             echo '</div>';
             echo '</div>';
@@ -191,11 +206,16 @@ function displaySearchResults() {
             <a href="tel:Your Phone Number" class="btn btn-primary btn-sm ml-2">Call Your Phone Number</a>
         </div>
 
-        <div class="search-form">
-            <form id="search_form" method="post" action="search.php">
-                <input type="tel" name="search_veh_part" id="search_veh_part" class="form-control" maxlength="4" inputmode="numeric" placeholder="Enter Partial Vehicle No (4 digits)">
-            </form>
-        </div>
+ 	<div class="search-form">
+    	    <form id="search_form" method="post" action="search.php" class="form-inline">
+        	<div class="form-group mb-2">
+            	<input type="text" name="state_code" id="state_code" class="form-control" placeholder="State Code (e.g., MH)" value="<?php echo 			isset($_SESSION['state_code']) ? $_SESSION['state_code'] : ''; ?>" style="width: 100px; margin-right: 10px;">
+        	</div>
+        	<div class="form-group mb-2">
+            	<input type="tel" name="search_veh_part" id="search_veh_part" class="form-control" maxlength="4" inputmode="numeric" placeholder="4 digits" 		style="width: 120px;">
+        	</div>
+    	    </form>
+	</div>
 
         <!-- Display search results -->
         <?php displaySearchResults(); ?>
