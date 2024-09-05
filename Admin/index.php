@@ -106,7 +106,8 @@ $_SESSION['LAST_ACTIVITY'] = time(); // Update last activity time
                                 <div class='row'>
                                     <div class='col-md-5'>
                                         $sr_no. $file 
-                                        <a href='$directory$file' target='_blank' class='btn btn-link'>View</a>
+                                        <a href='view_uploaded_files.php?file=" . urlencode($file) . "' class='btn btn-link'>View</a>
+                                        <!--<a href='$directory$file' target='_blank' class='btn btn-link'>View</a> -->
                                         <button class='btn btn-danger btn-sm delete-file' data-file='$file'>Delete File</button>
                                     </div>
                                     <div class='col-md-5 offset-md-2 file-actions'> <!-- Added offset for more space between columns -->
