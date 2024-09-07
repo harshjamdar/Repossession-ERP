@@ -125,14 +125,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["csv_file"])) {
                     $total_records++;
                     try {
                         // Capitalize the veh_no before processing
-                        $veh_no = strtoupper($row['A']);
-                        if ($veh_no === "Newvehiclenotregister") {
+                        // Ensure veh_no is not null or empty before using strtoupper
+                        if (!empty($row['A']) && is_string($row['A'])) {
+                            $veh_no = strtoupper($row['A']);
+                        } else {
+                            $veh_no = null;
+                        }
+                        
+                        // Skip processing if veh_no is null or matches specific strings
+                        if ($veh_no === null || $veh_no === "Newvehiclenotregister" || $veh_no === "NEWVEHICLENOTREGISTER") {
+                            $errorCount++;
                             continue;
                         }
-                        if (empty($veh_no)) {
-                            $errorCount++;
-                            continue; // Skip processing this row
-                        }
+                        
                         $company = isset($row['B']) ? $row['B'] : null;
                         $customer_name = isset($row['C']) ? $row['C'] : null;
                         $model = isset($row['D']) ? $row['D'] : null;

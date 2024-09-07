@@ -94,34 +94,55 @@ $_SESSION['LAST_ACTIVITY'] = time(); // Update last activity time
             <h2>View Uploaded Files</h2>
             <button id="viewFilesButton" class="btn btn-secondary">View Files</button>
             <div id="uploadedFiles" class="mt-3" style="display:none;">
-                <?php
-                $directory = 'uploads/'; // Your directory containing the uploaded files
-                $files = array_diff(scandir($directory), array('..', '.')); // Get all files except . and ..
-
-                if (!empty($files)) {
-                    echo "<ul class='list-unstyled'>";
-                    $sr_no = 1;
-                    foreach ($files as $file) {
-                        echo "<li class='mb-4'> <!-- Increased bottom margin for more space between list items -->
-                                <div class='row'>
-                                    <div class='col-md-5'>
-                                        $sr_no. $file 
-                                        <a href='view_uploaded_files.php?file=" . urlencode($file) . "' class='btn btn-link'>View</a>
-                                        <!--<a href='$directory$file' target='_blank' class='btn btn-link'>View</a> -->
-                                        <button class='btn btn-danger btn-sm delete-file' data-file='$file'>Delete File</button>
-                                    </div>
-                                    <div class='col-md-5 offset-md-2 file-actions'> <!-- Added offset for more space between columns -->
-                                        <button class='btn btn-danger btn-sm delete-db' data-file='$file'>Delete from Database</button>
-                                    </div>
+            <?php
+            $directory = 'uploads/'; // Your directory containing the uploaded files
+            $files = array_diff(scandir($directory), array('..', '.')); // Get all files except . and ..
+    
+            // Initialize an array to store file details (filename and modification time)
+            $fileDetails = [];
+    
+            // Loop through each file and get its modification time
+            foreach ($files as $file) {
+                $filePath = $directory . $file;
+                $fileDetails[] = [
+                    'filename' => $file,
+                    'mod_time' => filemtime($filePath)
+                ];
+            }
+    
+            // Sort files by modification time (most recent first)
+            usort($fileDetails, function($a, $b) {
+                return $b['mod_time'] - $a['mod_time']; // Sort descending by modification time
+            });
+    
+            if (!empty($fileDetails)) {
+                echo "<ul class='list-unstyled'>";
+                $sr_no = 1;
+                foreach ($fileDetails as $fileDetail) {
+                    $file = $fileDetail['filename'];
+                    $filePath = $directory . $file;
+                    $uploadDate = date("F d Y H:i:s", $fileDetail['mod_time']); // Get last modified date and time
+    
+                    echo "<li class='mb-4'> <!-- Increased bottom margin for more space between list items -->
+                            <div class='row'>
+                                <div class='col-md-5'>
+                                    $sr_no. $file 
+                                    <br><small>$uploadDate</small> <!-- Display upload date -->
+                                    <a href='view_uploaded_files.php?file=" . urlencode($file) . "' class='btn btn-link'>View</a>
+                                    <button class='btn btn-danger btn-sm delete-file' data-file='" . htmlspecialchars($file) . "'>Delete File</button>
                                 </div>
-                              </li>";
-                        $sr_no++;
-                    }
-                    echo "</ul>";
-                } else {
-                    echo '<div class="alert alert-warning">No files uploaded.</div>';
+                                <div class='col-md-5 offset-md-2 file-actions'> <!-- Added offset for more space between columns -->
+                                    <button class='btn btn-danger btn-sm delete-db' data-file='" . htmlspecialchars($file) . "'>Delete from Database</button>
+                                </div>
+                            </div>
+                          </li>";
+                    $sr_no++;
                 }
-                ?>
+                echo "</ul>";
+            } else {
+                echo '<div class="alert alert-warning">No files uploaded.</div>';
+            }
+            ?>
             </div>
         </div>
     </div>
