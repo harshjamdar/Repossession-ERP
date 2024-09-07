@@ -100,6 +100,8 @@ $_SESSION['LAST_ACTIVITY'] = time(); // Update last activity time
     
             // Initialize an array to store file details (filename and modification time)
             $fileDetails = [];
+
+	    date_default_timezone_set('Asia/Kolkata'); // Example: 'Asia/Kolkata' for IST
     
             // Loop through each file and get its modification time
             foreach ($files as $file) {
