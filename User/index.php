@@ -135,12 +135,14 @@ function displaySearchResults() {
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 10px 20px;
+            padding: 10px 25px;
             cursor: pointer;
-            margin-top: 20px;
             display: block;
             margin-left: auto;
             margin-right: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 100px; /* Ensures consistent width */
         }
 
         .logout-btn:hover {
@@ -157,6 +159,18 @@ function displaySearchResults() {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Function to focus on input and open keypad
+            function confirmLogout(event) {
+            if (!confirm('Are you sure you want to log out?')) {
+                event.preventDefault(); // Prevent the default action (logout) if user cancels
+                }
+            }
+
+            // Add event listener to the logout link
+            var logoutLink = document.querySelector('.logout-btn');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', confirmLogout);
+            }
+
             function focusInput() {
                 var input = document.getElementById('search_veh_part');
                 input.focus();
