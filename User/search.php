@@ -58,15 +58,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Start session and store the search results in session variable
                 session_start();
                 $_SESSION['search_results'] = $veh_numbers;
-
+                
                 // Store the state code in session to retain it in the form
                 $_SESSION['state_code'] = $state_code;
+                
 
                 // Redirect to index.php with search_results=true to display results
                 header("Location: index.php?search_results=true");
                 exit();
             } else {
-		//echo "No vehicles found with that criteria.";
+                // If no results, store the state code in session to retain it
+                session_start();
+                $_SESSION['state_code'] = $state_code;
+                
+                //echo "No vehicles found with that criteria.";
                 echo "<div class='col-12 alert alert-warning'>No vehicles found with that criteria. <a href='index.php' class='btn btn-link'>Go Back</a></div>";
             }
 
